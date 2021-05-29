@@ -21,18 +21,6 @@ class Inventory:
         return report
 
     @classmethod
-    def open_xml_file(cls, path):
-        root = ET.parse(path).getroot()
-        registers = root.findall("record")
-        file = []
-        for register in registers:
-            file_dict = {}
-            for tag in register:
-                file_dict[tag.tag] = tag.text
-            file.append(file_dict)
-        return file
-
-    @classmethod
     def open_json_file(cls, path):
         with open(path) as json_file:
             file = json.load(json_file)
@@ -43,3 +31,15 @@ class Inventory:
         with open(path) as csv_file:
             file = csv.DictReader(csv_file)
             return list(file)
+
+    @classmethod
+    def open_xml_file(cls, path):
+        root = ET.parse(path).getroot()
+        registers = root.findall("record")
+        file = []
+        for register in registers:
+            file_dict = {}
+            for tag in register:
+                file_dict[tag.tag] = tag.text
+            file.append(file_dict)
+        return file
